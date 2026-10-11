@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>SkillSync – nobody started ready</title>
+  <meta name="description" content="A free, fun place for first-year tech students to learn the basics, find their skill gaps and get a weekly roadmap.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        fontFamily: { sans: ['"DM Sans"', 'system-ui', 'sans-serif'] },
+        colors: { wine: { 900: '#2c080b', 800: '#3e0b10', 700: '#4a0d13', 500: '#c4232f' }, bone: '#efe7d8' }
+      } }
+    }
+  </script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="font-sans min-h-screen" data-page="landing">
+
+<header class="max-w-5xl mx-auto px-4 pt-5 flex items-center justify-between">
+  <div class="disp text-3xl">Skill<span class="ser text-4xl">sync</span></div>
+  <button id="open-login" class="btn btn-ghost py-2 px-4 text-sm">Log in</button>
+</header>
+
+<main class="max-w-5xl mx-auto px-4 pb-24">
+
+  <!-- Hero -->
+  <section class="panel mt-6 p-5 md:p-10 relative overflow-hidden" style="background:var(--wine-900)">
+    <div class="absolute top-4 right-4 disp text-xl opacity-80" style="writing-mode:vertical-rl" id="stamp-date"></div>
+    <p class="mut text-sm max-w-xs">For students who joined a tech course without a tech background.</p>
+    <h1 class="disp mt-8 mb-5" style="font-size:clamp(3.4rem,17vw,8rem)">Nobody <span class="ser">started</span> ready.</h1>
+    <p class="max-w-xl text-lg">Git, GitHub, LeetCode, the terminal. Everyone around you seems to know them already. SkillSync explains each one with a simple analogy, checks where you stand, and gives you a weekly plan.</p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="#join" class="btn">Start free</a>
+      <a href="#how" class="btn btn-ghost">How it works</a>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="mt-12">
+    <h2 class="disp text-4xl mb-5">How it works</h2>
+    <div class="grid md:grid-cols-4 gap-0 border rule">
+      <div class="p-4 border-b md:border-b-0 md:border-r rule"><h3 class="disp text-2xl mb-2">Check</h3><p class="mut text-sm">Answer 13 quick questions. No judging. It takes about 3 minutes.</p></div>
+      <div class="p-4 border-b md:border-b-0 md:border-r rule"><h3 class="disp text-2xl mb-2">Plan</h3><p class="mut text-sm">Get a 4-week roadmap built from your gaps, with prerequisites first.</p></div>
+      <div class="p-4 border-b md:border-b-0 md:border-r rule"><h3 class="disp text-2xl mb-2">Learn</h3><p class="mut text-sm">Every term comes with an everyday analogy. Finish tasks, earn XP, keep your streak.</p></div>
+      <div class="p-4"><h3 class="disp text-2xl mb-2">Connect</h3><p class="mut text-sm">Find peers who are strong where you are weak, and help them back.</p></div>
+    </div>
+  </section>
+
+  <!-- Auth -->
+  <section id="join" class="mt-12 grid md:grid-cols-2 gap-6 items-start">
+    <div>
+      <h2 class="disp text-4xl mb-3">Tier 3 is a <span class="ser">starting line</span>, not a sentence.</h2>
+      <p class="mut">Free for students. Your answers are only used to build your roadmap and match you with peers. Your email is never shown to anyone.</p>
+    </div>
+
+    <div class="panel-inv p-5">
+      <div class="flex gap-4 mb-4 border-b" style="border-color:rgba(74,13,19,.3)" role="tablist">
+        <button id="tab-signup" role="tab" aria-selected="true" class="disp text-2xl pb-2 border-b-4" style="border-color:var(--red)">Sign up</button>
+        <button id="tab-login" role="tab" aria-selected="false" class="disp text-2xl pb-2 border-b-4 opacity-50" style="border-color:transparent">Log in</button>
+      </div>
+
+      <form id="form-signup" class="space-y-3" autocomplete="on" novalidate>
+        <div><label class="field" style="color:#6b3a3d" for="su-name">Your name</label><input id="su-name" name="name" required maxlength="60" autocomplete="name" style="color:#4a0d13;border-color:rgba(74,13,19,.4)"></div>
+        <div><label class="field" style="color:#6b3a3d" for="su-email">Email</label><input id="su-email" name="email" type="email" required autocomplete="email" style="color:#4a0d13;border-color:rgba(74,13,19,.4)"></div>
+        <div><label class="field" style="color:#6b3a3d" for="su-pass">Password (8+ characters)</label><input id="su-pass" name="password" type="password" required minlength="8" autocomplete="new-password" style="color:#4a0d13;border-color:rgba(74,13,19,.4)"></div>
+        <div><label class="field" style="color:#6b3a3d" for="su-college">College</label><input id="su-college" name="college" required maxlength="100" style="color:#4a0d13;border-color:rgba(74,13,19,.4)"></div>
+        <div class="grid grid-cols-2 gap-3">
+          <div><label class="field" style="color:#6b3a3d" for="su-course">Course</label>
+            <select id="su-course" name="course" required style="color:#4a0d13;border-color:rgba(74,13,19,.4)">
+              {% for c in courses %}<option>{{ c }}</option>{% endfor %}
+            </select></div>
+          <div><label class="field" style="color:#6b3a3d" for="su-year">Year</label>
+            <select id="su-year" name="year" required style="color:#4a0d13;border-color:rgba(74,13,19,.4)">
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+            </select></div>
+        </div>
+        <p id="su-error" class="text-sm font-bold" style="color:#a31822" role="alert"></p>
+        <button class="btn w-full" type="submit">Create my account</button>
+      </form>
+
+      <form id="form-login" class="space-y-3 hidden" novalidate>
+        <div><label class="field" style="color:#6b3a3d" for="li-email">Email</label><input id="li-email" name="email" type="email" required autocomplete="email" style="color:#4a0d13;border-color:rgba(74,13,19,.4)"></div>
+        <div><label class="field" style="color:#6b3a3d" for="li-pass">Password</label><input id="li-pass" name="password" type="password" required autocomplete="current-password" style="color:#4a0d13;border-color:rgba(74,13,19,.4)"></div>
+        <p id="li-error" class="text-sm font-bold" style="color:#a31822" role="alert"></p>
+        <button class="btn w-full" type="submit">Log in</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="mt-14 mut text-sm">Built by a student who faced this problem. SkillSync is a learning project, so be kind and send feedback.</footer>
+</main>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

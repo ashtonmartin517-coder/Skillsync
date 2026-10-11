@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Local data and secrets (never commit these)
+instance/
+*.db
+.env
+
+# OS / editor
+.DS_Store
+.vscode/

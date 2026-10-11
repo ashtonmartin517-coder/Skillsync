@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>SkillSync – your dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@1&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        fontFamily: { sans: ['"DM Sans"', 'system-ui', 'sans-serif'] },
+        colors: { wine: { 900: '#2c080b', 800: '#3e0b10', 700: '#4a0d13', 500: '#c4232f' }, bone: '#efe7d8' }
+      } }
+    }
+  </script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="font-sans min-h-screen pb-28" data-page="dashboard">
+
+<header class="max-w-3xl mx-auto px-4 pt-4 flex items-center justify-between gap-3">
+  <div class="disp text-3xl">Skill<span class="ser text-4xl">sync</span></div>
+  <div class="flex items-center gap-2 text-sm">
+    <span class="panel px-3 py-1 font-bold" title="Day streak"><span id="chip-streak">0</span> day streak</span>
+    <span class="panel px-3 py-1 font-bold" title="Experience points"><span id="chip-xp">0</span> XP</span>
+    <button id="logout" class="mut underline px-1" type="button">Log out</button>
+  </div>
+</header>
+
+<main class="max-w-3xl mx-auto px-4 mt-4">
+  <div id="loading" class="mut py-20 text-center">Loading your dashboard...</div>
+  <div id="load-error" class="hidden panel p-5 my-10"></div>
+
+  <section id="view-home" class="view hidden" aria-label="Home"></section>
+  <section id="view-check" class="view hidden" aria-label="Skill check"></section>
+  <section id="view-roadmap" class="view hidden" aria-label="Roadmap"></section>
+  <section id="view-learn" class="view hidden" aria-label="Learn"></section>
+  <section id="view-peers" class="view hidden" aria-label="Peers"></section>
+  <section id="view-board" class="view hidden" aria-label="Leaderboard"></section>
+</main>
+
+<nav class="fixed bottom-0 left-0 right-0 z-40 border-t rule" style="background:var(--wine-900);padding-bottom:env(safe-area-inset-bottom,0px)" aria-label="Main">
+  <div class="max-w-3xl mx-auto grid grid-cols-6 text-xs py-2">
+    <button class="tab" data-tab="home" type="button"><span class="block disp text-lg">Home</span><span class="tab-dot"></span></button>
+    <button class="tab" data-tab="check" type="button"><span class="block disp text-lg">Check</span><span class="tab-dot"></span></button>
+    <button class="tab" data-tab="roadmap" type="button"><span class="block disp text-lg">Plan</span><span class="tab-dot"></span></button>
+    <button class="tab" data-tab="learn" type="button"><span class="block disp text-lg">Learn</span><span class="tab-dot"></span></button>
+    <button class="tab" data-tab="peers" type="button"><span class="block disp text-lg">Peers</span><span class="tab-dot"></span></button>
+    <button class="tab" data-tab="board" type="button"><span class="block disp text-lg">Rank</span><span class="tab-dot"></span></button>
+  </div>
+</nav>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
